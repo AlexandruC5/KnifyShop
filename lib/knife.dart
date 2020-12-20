@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 
 class Knife{
@@ -7,6 +6,7 @@ class Knife{
   String name;
   String price;
   String description;
+  String image;
 
   Knife.fromFirestore(DocumentSnapshot doc)
   {
@@ -14,6 +14,7 @@ class Knife{
     this.name = doc['Name'];
     this.price = doc['Price'];
     this.description = doc['Description'];
+    this.image = doc['Image'];
   }
 
   
@@ -33,11 +34,5 @@ Stream<List<Knife>> knifeListSnapshots()
   });
 }
 
-class FireStorageService extends ChangeNotifier {
-  FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String Image) async {
-    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
-  }
-}
 
 

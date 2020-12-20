@@ -52,6 +52,7 @@ class _MainPageState extends State<MainPage> {
         fit: BoxFit.scaleDown,
       );
     });
+    return image;
   }
 
   Widget _buildMainPage(List<Knife> docs) {
@@ -72,9 +73,36 @@ class _MainPageState extends State<MainPage> {
                         knife.name,
                       ),
                       subtitle: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(0.0),
                         child: Text(
                           knife.price,
+                        ),
+                      ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: FutureBuilder(
+                          future: _getImage(context, knife.image),
+                          builder: (context, snapshot)
+                          {
+                            if(snapshot.connectionState == ConnectionState.done)
+                            {
+                              return Container(
+                                width: MediaQuery.of(context).size.width/1.2,
+                                height: MediaQuery.of(context).size.width/1.2,
+                                child: snapshot.data,
+                              );
+                            }
+
+                            if(snapshot.connectionState == ConnectionState.waiting)
+                            {
+                              return Container(
+                                width: MediaQuery.of(context).size.width/2,
+                                height: MediaQuery.of(context).size.width/2,
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return Container();
+                          },
                         ),
                       ),
                     );
