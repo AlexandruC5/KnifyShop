@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:KnifyShop/knife.dart';
 import 'package:flutter/rendering.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -42,6 +44,16 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Future<Widget> _getImage(BuildContext context, String imageName) async {
+    Image image;
+    await FireStorageService.loadImage(context, imageName).then((value) {
+      image = Image.network(
+        value.toString(),
+        fit: BoxFit.scaleDown,
+      );
+    });
+  }
+
   Widget _buildMainPage(List<Knife> docs) {
     final knifes = FirebaseFirestore.instance.collection('Knifes');
     return Scaffold(
@@ -59,8 +71,11 @@ class _MainPageState extends State<MainPage> {
                       title: Text(
                         knife.name,
                       ),
-                      subtitle: Text(
-                        knife.price,
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          knife.price,
+                        ),
                       ),
                     );
                   }))
@@ -86,5 +101,14 @@ class _MainPageState extends State<MainPage> {
         }
       },
     );
+  }
+}
+
+class FireStorageService extends ChangeNotifier
+{
+  FireStorageService();
+  static Future<dynamic> loadImage(BuildContext context, String Image) async
+  {
+    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
   }
 }
