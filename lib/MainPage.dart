@@ -56,9 +56,13 @@ class _MainPageState extends State<MainPage> {
                   itemBuilder: (context, index) {
                     final knife = docs[index];
                     return ListTile(
-                        title: Text(
-                      knife.name,
-                    ));
+                      title: Text(
+                        knife.name,
+                      ),
+                      subtitle: Text(
+                        knife.price,
+                      ),
+                    );
                   }))
         ],
       ),

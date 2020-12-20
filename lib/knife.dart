@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Knife{
   String id;
   String name;
+  String price;
 
   Knife.fromFirestore(DocumentSnapshot doc)
   {
     this.id = doc.id;
     this.name = doc['Name'];
+    this.price = doc['Price'];
   }
 
   
