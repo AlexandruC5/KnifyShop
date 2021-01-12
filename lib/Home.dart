@@ -9,15 +9,18 @@ class HomePage extends StatelessWidget{
     return Scaffold(
       appBar:AppBar(
         title:Text("Home Page"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          child:Text('Recomended knifes'),
-          onPressed: (){
-            Navigator.of(context).pushNamed('/two');
-          },
         ),
-      ),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 100.0),
+          child: Center(
+          child:ElevatedButton(
+            child: Text('See our recomended knifes!'),
+            onPressed: (){
+              Navigator.of(context).pushNamed('/two');
+            },
+          ),
+          ),
+        ),
     );
   }
 }
