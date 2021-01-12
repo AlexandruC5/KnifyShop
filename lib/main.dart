@@ -1,10 +1,13 @@
 import 'package:KnifyShop/Home.dart';
+import 'package:KnifyShop/KnifePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'MainPage.dart';
 import 'Home.dart';
+import 'KnifePage.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +24,7 @@ class KnifyShop extends StatelessWidget {
       routes: {
         '/':(context)=>HomePage(),
         '/two':(context)=>MainPage(),
+        '/three':(context)=>KnifePage(),
       },
       initialRoute: '/',
     );

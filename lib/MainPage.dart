@@ -4,7 +4,6 @@ import 'package:KnifyShop/knife.dart';
 import 'package:flutter/rendering.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -82,22 +81,21 @@ class _MainPageState extends State<MainPage> {
                         padding: const EdgeInsets.only(left: 50.0),
                         child: FutureBuilder(
                           future: _getImage(context, knife.image),
-                          builder: (context, snapshot)
-                          {
-                            if(snapshot.connectionState == ConnectionState.done)
-                            {
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
                               return Container(
-                                width: MediaQuery.of(context).size.width/1.2,
-                                height: MediaQuery.of(context).size.width/1.2,
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                height: MediaQuery.of(context).size.width / 1.2,
                                 child: snapshot.data,
                               );
                             }
 
-                            if(snapshot.connectionState == ConnectionState.waiting)
-                            {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
                               return Container(
-                                width: MediaQuery.of(context).size.width/2,
-                                height: MediaQuery.of(context).size.width/2,
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.width / 2,
                                 child: CircularProgressIndicator(),
                               );
                             }
@@ -105,6 +103,9 @@ class _MainPageState extends State<MainPage> {
                           },
                         ),
                       ),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/three');
+                      },
                     );
                   }))
         ],
@@ -132,11 +133,9 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class FireStorageService extends ChangeNotifier
-{
+class FireStorageService extends ChangeNotifier {
   FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String Image) async
-  {
+  static Future<dynamic> loadImage(BuildContext context, String Image) async {
     return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
   }
 }
