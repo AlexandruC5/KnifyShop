@@ -1,8 +1,10 @@
+import 'package:KnifyShop/Home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'MainPage.dart';
+import 'Home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,11 @@ class KnifyShop extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KnifyShop',
-      home: MainPage(),
+      routes: {
+        '/':(context)=>HomePage(),
+        '/two':(context)=>MainPage(),
+      },
+      initialRoute: '/',
     );
   }
 }
