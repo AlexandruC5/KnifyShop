@@ -24,7 +24,7 @@ class KnifyShop extends StatelessWidget {
       routes: {
         '/':(context)=>HomePage(),
         '/two':(context)=>MainPage(),
-        '/three':(context)=>KnifePage(),
+       // '/three':(context)=>KnifePage(),
       },
       initialRoute: '/',
     );

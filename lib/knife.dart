@@ -8,6 +8,7 @@ class Knife{
   String price;
   String description;
   String image;
+  DocumentSnapshot doc;
 
   Knife.fromFirestore(DocumentSnapshot doc)
   {
@@ -16,6 +17,8 @@ class Knife{
     this.price = doc['Price'];
     this.description = doc['Description'];
     this.image = doc['Image'];
+    this.doc = doc;
+    
   }
 
   

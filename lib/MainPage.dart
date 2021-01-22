@@ -1,3 +1,5 @@
+
+import 'package:KnifyShop/KnifePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:KnifyShop/knife.dart';
@@ -55,7 +57,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildMainPage(List<Knife> docs) {
-    final knifes = FirebaseFirestore.instance.collection('Knifes');
+    //final knifes = FirebaseFirestore.instance.collection('Knifes');
     return Scaffold(
       appBar: AppBar(
         title: Text("Knifes we have right now."),
@@ -104,7 +106,11 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, '/three');
+                        var page = new KnifePage(doc: knife.doc);
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return page;
+                        }));
                       },
                     );
                   }))
@@ -139,3 +145,5 @@ class FireStorageService extends ChangeNotifier {
     return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
   }
 }
+
+createDescriptionPage(DocumentSnapshot doc) async {}
