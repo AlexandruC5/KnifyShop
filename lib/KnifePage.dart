@@ -7,7 +7,6 @@ class KnifePage extends StatefulWidget {
   DocumentSnapshot doc;
   KnifePage({@required this.doc});
   _KnifePageState createState() => _KnifePageState();
-
 }
 
 class _KnifePageState extends State<KnifePage> {
@@ -55,23 +54,50 @@ class _KnifePageState extends State<KnifePage> {
     return image;
   }
 
-  
-
   Widget _buildKnifePage(List<Knife> docs) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.doc.data()['Name']),
       ),
       body: Column(
-        children: [
-          
-          
-          
-              
-        ],
+        children: _GetImage(),
       ),
+      backgroundColor: Colors.orange[100],
+      
+      
     );
+  }
+
+  List<Widget> _GetImage() {
+    return [
+        Expanded(
+          child: Padding(
+            padding:
+                const EdgeInsets.only(bottom: 250.0, left: 5.0, right: 5.0),
+            child: FutureBuilder(
+              future: _getImage(context, widget.doc.data()['Image']),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    child: snapshot.data,
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ),
+        )
+      ];
   }
 
   Widget build(BuildContext context) {
@@ -93,4 +119,3 @@ class _KnifePageState extends State<KnifePage> {
     );
   }
 }
-
