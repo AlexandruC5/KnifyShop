@@ -55,53 +55,68 @@ class _KnifePageState extends State<KnifePage> {
   }
 
   Widget _buildKnifePage(List<Knife> docs) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.doc.data()['Name']),
-      ),
-      body: Column(children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
-            child: FutureBuilder(
-              future: _getImage(context, widget.doc.data()['Image']),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: snapshot.data,
-                  );
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Container();
-              },
+    var bottomText = Container(
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(widget.doc.data()["Description"]),
+              ),
+              decoration: ShapeDecoration(
+                color: Colors.red[50],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft:Radius.circular(25),
+                    topRight: Radius.circular(25),
+                    bottomLeft: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                  )
+                )
+              ),
+            );
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.doc.data()['Name']),
+          ),
+          body: Column(children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
+                child: FutureBuilder(
+                  future: _getImage(context, widget.doc.data()['Image']),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width,
+                        child: snapshot.data,
+                      );
+                    }
+    
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width,
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ),
             ),
-          ),
-        ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Text(widget.doc.data()["Description"]),
-          ),
-          decoration: ShapeDecoration(
-            color: Colors.red[50],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft:Radius.circular(25),
-                topRight: Radius.circular(25)
-              )
+            bottomText,
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(widget.doc.data()["Price"]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                child: Text("Buy!"),
+                color: Colors.red[500],
+                onPressed: null
+              ),
             )
-          ),
-        ),
       ]),
       backgroundColor: Colors.orange[100],
     );
