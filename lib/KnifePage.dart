@@ -59,21 +59,11 @@ class _KnifePageState extends State<KnifePage> {
       appBar: AppBar(
         title: Text(widget.doc.data()['Name']),
       ),
-      body: Column(
-        children: _GetImage(),
-      ),
-      backgroundColor: Colors.orange[100],
-      
-      
-    );
-  }
-
-  List<Widget> _GetImage() {
-    return [
+      body: Column(children: <Widget>[
         Expanded(
           child: Padding(
             padding:
-                const EdgeInsets.only(bottom: 250.0, left: 5.0, right: 5.0),
+                const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
             child: FutureBuilder(
               future: _getImage(context, widget.doc.data()['Image']),
               builder: (context, snapshot) {
@@ -96,8 +86,25 @@ class _KnifePageState extends State<KnifePage> {
               },
             ),
           ),
-        )
-      ];
+        ),
+        Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Text(widget.doc.data()["Description"]),
+          ),
+          decoration: ShapeDecoration(
+            color: Colors.red[50],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft:Radius.circular(25),
+                topRight: Radius.circular(25)
+              )
+            )
+          ),
+        ),
+      ]),
+      backgroundColor: Colors.orange[100],
+    );
   }
 
   Widget build(BuildContext context) {
