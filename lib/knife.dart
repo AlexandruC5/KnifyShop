@@ -24,7 +24,7 @@ class Knife{
   
 }
 
-Stream<List<Knife>> knifeListSnapshots()
+Stream<List<Knife>> requestKnifeSnapshots()
 {
   final knifes = FirebaseFirestore.instance.collection('Knifes');
   return knifes.snapshots().map((QuerySnapshot query)
@@ -37,6 +37,24 @@ Stream<List<Knife>> knifeListSnapshots()
     return result;
   });
 }
+
+
+Stream<List<Knife>> requestedKnifeSnapshots()
+{
+  final knifes = FirebaseFirestore.instance.collection('Requests');
+  return knifes.snapshots().map((QuerySnapshot query)
+  {
+    List<Knife> result = [];
+    for (var doc in query.docs)
+    {
+      result.add(Knife.fromFirestore(doc));
+    }
+    return result;
+  });
+}
+
+
+
 
 
 

@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'Request.dart';
+import 'knife.dart';
 
+class RequestedKnifesPage extends StatefulWidget {
 
-class RequestKnifePage extends StatefulWidget {
-
-  _RequestKnifePage createState() => _RequestKnifePage();
+  _RequestedKnifesPage createState() => _RequestedKnifesPage();
 }
 
-class _RequestKnifePage extends State<RequestKnifePage> {
+class _RequestedKnifesPage extends State<RequestedKnifesPage> {
   TextEditingController _controller;
 
   @override
@@ -42,7 +41,7 @@ class _RequestKnifePage extends State<RequestKnifePage> {
     );
   }
 
-  Widget _buildRequestKnifePage(List<Request> docs)
+  Widget _buildRequestedKnifesPage(List<Knife> docs)
   {
     return Scaffold(
       appBar: AppBar(
@@ -54,8 +53,8 @@ class _RequestKnifePage extends State<RequestKnifePage> {
   @override
    Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: requestedKnifeSnapshots(),
-      builder: (context, AsyncSnapshot<List<Request>> snapshot) {
+      stream: requestKnifeSnapshots(),
+      builder: (context, AsyncSnapshot<List<Knife>> snapshot) {
         if (snapshot.hasError) {
           return _buildError(snapshot.error);
         }
@@ -63,7 +62,7 @@ class _RequestKnifePage extends State<RequestKnifePage> {
           case ConnectionState.waiting:
             return _buildLoading();
           case ConnectionState.active:
-            return _buildRequestKnifePage(snapshot.data);
+            return _buildRequestedKnifesPage(snapshot.data);
           default:
             _buildError('Unreachable');
         }

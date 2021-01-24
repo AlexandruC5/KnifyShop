@@ -127,7 +127,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: knifeListSnapshots(),
+      stream: requestKnifeSnapshots(),
       builder: (context, AsyncSnapshot<List<Knife>> snapshot) {
         if (snapshot.hasError) {
           return _buildError(snapshot.error);

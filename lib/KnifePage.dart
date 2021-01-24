@@ -85,54 +85,55 @@ class _KnifePageState extends State<KnifePage> {
             child: Text('Price:${(widget.doc.data()["Price"])}'),
           ),
         ));
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.doc.data()['Name']),
-      ),
-      body: Column(children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
-            child: FutureBuilder(
-              future: _getImage(context, widget.doc.data()['Image']),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: snapshot.data,
-                  );
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Container();
-              },
-            ),
+    var buyButton = Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton(
+                  child: Text("Buy!"),
+                  //color: Colors.red[500],
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                              title: Text(
+                                  'You just bought: ${widget.doc.data()['Name']}'),
+                              content: Text('Thanks for you purchase with us!'),
+                            ));
+                  }),
+            );
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.doc.data()['Name']),
           ),
-        ),
-        bottomText,
-        priceText,
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FloatingActionButton(
-              child: Text("Buy!"),
-              //color: Colors.red[500],
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          title: Text(
-                              'You just bought: ${widget.doc.data()['Name']}'),
-                          content: Text('Thanks for you purchase with us!'),
-                        ));
-              }),
-        ),
+          body: Column(children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
+                child: FutureBuilder(
+                  future: _getImage(context, widget.doc.data()['Image']),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width,
+                        child: snapshot.data,
+                      );
+                    }
+    
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width,
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ),
+            ),
+            bottomText,
+            priceText,
+            buyButton,
       ]),
       backgroundColor: Colors.orange[100],
     );
@@ -140,7 +141,7 @@ class _KnifePageState extends State<KnifePage> {
 
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: knifeListSnapshots(),
+      stream: requestKnifeSnapshots(),
       builder: (context, AsyncSnapshot<List<Knife>> snapshot) {
         if (snapshot.hasError) {
           return _buildError(snapshot.error);
