@@ -57,7 +57,7 @@ class _RequestKnifePage extends State<RequestKnifePage> {
         child: TextField(
           decoration: InputDecoration(
             filled: true,
-            labelText: 'Introduce the name of the knife you want'
+            labelText: 'Introduce the name and price range of the knife you want'
           ),
           onSubmitted: (String knifeName){
             addRequest(knifeName);

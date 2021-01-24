@@ -27,6 +27,13 @@ class HomePage extends StatelessWidget {
                   Navigator.of(context).pushNamed('/three');
                 }),
           ),
-        ]));
+          ElevatedButton(
+            child: Text('See current requests'),
+            onPressed:(){
+              Navigator.of(context).pushNamed('/four');
+            }
+          )
+        ])
+        );
   }
 }

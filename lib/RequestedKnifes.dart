@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'Request.dart';
 
 class RequestedKnifesPage extends StatefulWidget {
-
   _RequestedKnifesPage createState() => _RequestedKnifesPage();
 }
 
@@ -41,17 +42,31 @@ class _RequestedKnifesPage extends State<RequestedKnifesPage> {
     );
   }
 
-  Widget _buildRequestedKnifesPage(List<Request> docs)
-  {
+  Widget _buildRequestedKnifesPage(List<Request> docs) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Current Requests'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Current Requests'),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: docs.length,
+                  itemBuilder: (context, index) {
+                    final request = docs[index];
+                    return ListTile(
+                      tileColor: Colors
+                          .primaries[Random().nextInt(Colors.primaries.length)],
+                      title: Text(request.name),
+                    );
+                  }),
+            )
+          ],
+        ));
   }
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return StreamBuilder(
       stream: requestedKnifeSnapshots(),
       builder: (context, AsyncSnapshot<List<Request>> snapshot) {
@@ -69,5 +84,4 @@ class _RequestedKnifesPage extends State<RequestedKnifesPage> {
       },
     );
   }
-
 }
