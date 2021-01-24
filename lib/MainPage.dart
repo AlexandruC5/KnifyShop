@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:KnifyShop/KnifePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   TextEditingController _controller;
+
+
+
+  int index=0;
 
   @override
   void initState() {
@@ -56,6 +62,11 @@ class _MainPageState extends State<MainPage> {
     return image;
   }
 
+
+
+
+
+
   Widget _buildMainPage(List<Knife> docs) {
     //final knifes = FirebaseFirestore.instance.collection('Knifes');
     return Scaffold(
@@ -70,6 +81,7 @@ class _MainPageState extends State<MainPage> {
                   itemBuilder: (context, index) {
                     final knife = docs[index];
                     return ListTile(
+                      tileColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
                       title: Text(
                         knife.name,
                       ),
