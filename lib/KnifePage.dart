@@ -64,12 +64,27 @@ class _KnifePageState extends State<KnifePage> {
           color: Colors.red[50],
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
-            bottomRight: Radius.circular(25),
+            topLeft: Radius.circular(45),
+            topRight: Radius.circular(45),
+            bottomLeft: Radius.circular(45),
+            bottomRight: Radius.circular(45),
           ))),
     );
+    var priceText = Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          height: 20,
+          width: 150,
+          decoration: BoxDecoration(
+              color: Colors.yellow[900],
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+              border: Border.all(
+                  width: 3, color: Colors.black, style: BorderStyle.solid)),
+          child: Center(
+            child: Text('Price:${(widget.doc.data()["Price"])}'),
+          ),
+        ));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.doc.data()['Name']),
@@ -102,18 +117,22 @@ class _KnifePageState extends State<KnifePage> {
           ),
         ),
         bottomText,
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Text(widget.doc.data()["Price"]),
-        ),
+        priceText,
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RaisedButton(
-            child: Text("Buy!"),
-            color: Colors.red[500],
-            onPressed: null,
-          ),
-        )
+          child: FloatingActionButton(
+              child: Text("Buy!"),
+              //color: Colors.red[500],
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          title: Text(
+                              'You just bought: ${widget.doc.data()['Name']}'),
+                          content: Text('Thanks for you purchase with us!'),
+                        ));
+              }),
+        ),
       ]),
       backgroundColor: Colors.orange[100],
     );

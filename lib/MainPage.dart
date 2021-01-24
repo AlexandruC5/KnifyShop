@@ -62,13 +62,7 @@ class _MainPageState extends State<MainPage> {
     return image;
   }
 
-
-
-
-
-
   Widget _buildMainPage(List<Knife> docs) {
-    //final knifes = FirebaseFirestore.instance.collection('Knifes');
     return Scaffold(
       appBar: AppBar(
         title: Text("Knifes we have right now."),
