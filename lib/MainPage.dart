@@ -2,7 +2,6 @@
 import 'dart:math';
 
 import 'package:KnifyShop/KnifePage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:KnifyShop/knife.dart';
 import 'package:flutter/rendering.dart';

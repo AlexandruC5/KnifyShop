@@ -40,30 +40,54 @@ class _RequestKnifePage extends State<RequestKnifePage> {
     );
   }
 
-  void addRequest(String text) async{
+  void addRequest(String text) async {
     await FirebaseFirestore.instance
-    .collection('Requests')
-    .doc()
-    .set({'Name':text});
+        .collection('Requests')
+        .doc()
+        .set({'Name': text});
   }
 
   Widget _buildRequestKnifePage(List<Request> docs) {
+    var textField = TextField(
+      decoration: InputDecoration(
+          filled: true,
+          labelText:
+              'Introduce the name and price range of the knife you want'),
+      onSubmitted: (String knifeName) {
+        addRequest(knifeName);
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Request a knife we dont have'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
-        child: TextField(
-          decoration: InputDecoration(
-            filled: true,
-            labelText: 'Introduce the name and price range of the knife you want'
-          ),
-          onSubmitted: (String knifeName){
-            addRequest(knifeName);
-          },
-        ),
-      ),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Make a request of the knife you want! Add the name and a price range ex: Deba 150-200€',
+                  style: TextStyle(
+                    fontSize: 20,
+                      fontFamily: 'Ariel',
+                      backgroundColor: Colors.amber[200]
+                      ),
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 22),
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    child: Image.asset('assets/knife.png')
+                    ),
+                ),
+              ),
+              textField,
+            ],
+          )),
     );
   }
 

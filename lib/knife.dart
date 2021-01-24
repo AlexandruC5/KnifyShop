@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 
 class Knife{
@@ -20,8 +19,6 @@ class Knife{
     this.doc = doc;
     
   }
-
-  
 }
 
 Stream<List<Knife>> requestKnifeSnapshots()
@@ -37,11 +34,3 @@ Stream<List<Knife>> requestKnifeSnapshots()
     return result;
   });
 }
-
-
-
-
-
-
-
-

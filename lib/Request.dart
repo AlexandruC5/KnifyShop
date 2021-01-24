@@ -10,12 +10,8 @@ class Request{
   {
     this.id = doc.id;
     this.name = doc['Name'];
-    //this.description = doc['Description'];
-    //this.doc = doc;
-    
-  }
 
-  
+  }
 }
 
 
