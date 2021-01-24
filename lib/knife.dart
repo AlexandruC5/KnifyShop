@@ -39,20 +39,6 @@ Stream<List<Knife>> requestKnifeSnapshots()
 }
 
 
-Stream<List<Knife>> requestedKnifeSnapshots()
-{
-  final knifes = FirebaseFirestore.instance.collection('Requests');
-  return knifes.snapshots().map((QuerySnapshot query)
-  {
-    List<Knife> result = [];
-    for (var doc in query.docs)
-    {
-      result.add(Knife.fromFirestore(doc));
-    }
-    return result;
-  });
-}
-
 
 
 

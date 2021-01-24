@@ -10,8 +10,8 @@ class Request{
   {
     this.id = doc.id;
     this.name = doc['Name'];
-    this.description = doc['Description'];
-    this.doc = doc;
+    //this.description = doc['Description'];
+    //this.doc = doc;
     
   }
 
@@ -21,8 +21,8 @@ class Request{
 
 Stream<List<Request>> requestedKnifeSnapshots()
 {
-  final knifes = FirebaseFirestore.instance.collection('Requests');
-  return knifes.snapshots().map((QuerySnapshot query)
+  final requests = FirebaseFirestore.instance.collection('Requests');
+  return requests.snapshots().map((QuerySnapshot query)
   {
     List<Request> result = [];
     for (var doc in query.docs)

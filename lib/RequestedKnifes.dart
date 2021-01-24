@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'knife.dart';
+import 'Request.dart';
 
 class RequestedKnifesPage extends StatefulWidget {
 
@@ -41,11 +41,11 @@ class _RequestedKnifesPage extends State<RequestedKnifesPage> {
     );
   }
 
-  Widget _buildRequestedKnifesPage(List<Knife> docs)
+  Widget _buildRequestedKnifesPage(List<Request> docs)
   {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Request a knife we dont have'),
+        title: Text('Current Requests'),
       ),
     );
   }
@@ -53,8 +53,8 @@ class _RequestedKnifesPage extends State<RequestedKnifesPage> {
   @override
    Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: requestKnifeSnapshots(),
-      builder: (context, AsyncSnapshot<List<Knife>> snapshot) {
+      stream: requestedKnifeSnapshots(),
+      builder: (context, AsyncSnapshot<List<Request>> snapshot) {
         if (snapshot.hasError) {
           return _buildError(snapshot.error);
         }

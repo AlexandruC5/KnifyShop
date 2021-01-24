@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'Request.dart';
 
-
 class RequestKnifePage extends StatefulWidget {
-
   _RequestKnifePage createState() => _RequestKnifePage();
 }
 
@@ -42,17 +40,35 @@ class _RequestKnifePage extends State<RequestKnifePage> {
     );
   }
 
-  Widget _buildRequestKnifePage(List<Request> docs)
-  {
+  void addRequest(String text) async{
+    await FirebaseFirestore.instance
+    .collection('Requests')
+    .doc()
+    .set({'Name':text});
+  }
+
+  Widget _buildRequestKnifePage(List<Request> docs) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Request a knife we dont have'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: TextField(
+          decoration: InputDecoration(
+            filled: true,
+            labelText: 'Introduce the name of the knife you want'
+          ),
+          onSubmitted: (String knifeName){
+            addRequest(knifeName);
+          },
+        ),
       ),
     );
   }
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return StreamBuilder(
       stream: requestedKnifeSnapshots(),
       builder: (context, AsyncSnapshot<List<Request>> snapshot) {
@@ -70,5 +86,4 @@ class _RequestKnifePage extends State<RequestKnifePage> {
       },
     );
   }
-
 }
